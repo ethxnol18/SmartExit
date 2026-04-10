@@ -83,6 +83,11 @@ class _PhoneInputScreenState extends ConsumerState<PhoneInputScreen> {
                     )
                   : const Text('Send OTP'),
             ),
+            const SizedBox(height: 24),
+            TextButton(
+              onPressed: () => context.push('/attendant'),
+              child: Text('Attendant Portal', style: TextStyle(color: AppColors.textSecondary.withOpacity(0.3))),
+            ),
           ]
           .animate(interval: 50.ms)
           .fade(duration: 400.ms)

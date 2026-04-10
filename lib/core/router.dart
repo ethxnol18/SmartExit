@@ -7,7 +7,10 @@ import '../features/ticket/ticket_retrieval_screen.dart';
 import '../features/ticket/fare_screen.dart';
 import '../features/payment/payment_screen.dart';
 import '../features/pass/pass_screen.dart';
-
+import '../features/emergency/emergency_screen.dart';
+import '../features/vehicles/add_vehicle_screen.dart';
+import '../features/attendant/attendant_login_screen.dart';
+import '../features/attendant/attendant_dashboard_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -44,7 +47,25 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/pass',
-      builder: (context, state) => const PassScreen(),
+      builder: (context, state) => PassScreen(isEmergency: state.extra as bool? ?? false),
+    ),
+    GoRoute(
+      path: '/emergency',
+      builder: (context, state) => const EmergencyScreen(),
+    ),
+    GoRoute(
+      path: '/add_vehicle',
+      builder: (context, state) => const AddVehicleScreen(),
+    ),
+    GoRoute(
+      path: '/attendant',
+      builder: (context, state) => const AttendantLoginScreen(),
+      routes: [
+        GoRoute(
+          path: 'dashboard',
+          builder: (context, state) => const AttendantDashboardScreen(),
+        ),
+      ],
     ),
   ],
 );

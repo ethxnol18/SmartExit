@@ -6,7 +6,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/constants.dart';
 
 class PassScreen extends StatefulWidget {
-  const PassScreen({super.key});
+  final bool isEmergency;
+  const PassScreen({super.key, this.isEmergency = false});
 
   @override
   State<PassScreen> createState() => _PassScreenState();
@@ -88,6 +89,18 @@ class _PassScreenState extends State<PassScreen> {
               const SizedBox(height: 48),
 
               // Glowing Pass UI
+              if (widget.isEmergency)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.error.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.error, width: 2),
+                  ),
+                  child: const Text('EMERGENCY OVERRIDE', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
+                ).animate().flash(duration: 2.seconds),
+                
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
