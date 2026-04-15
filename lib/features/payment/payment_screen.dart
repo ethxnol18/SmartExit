@@ -26,14 +26,17 @@ class PaymentScreen extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Multi-Channel Payment', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Multi-Channel Payment',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 24),
             // M-Pesa Primary Row
             InkWell(
               onTap: status == PaymentStatus.pending
                   ? null
                   : () {
-                      ref.read(paymentProvider.notifier).initiateMpesaStk("+254 7XX XXX XXX", 100);
+                      ref
+                          .read(paymentProvider.notifier)
+                          .initiateMpesaStk("+254 7XX XXX XXX", 100);
                     },
               child: Container(
                 padding: const EdgeInsets.all(16),
@@ -44,14 +47,18 @@ class PaymentScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.phone_android, color: AppColors.primary, size: 32),
+                    const Icon(Icons.phone_android,
+                        color: AppColors.primary, size: 32),
                     const SizedBox(width: 16),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('M-Pesa STK Push', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                          Text('Direct to phone', style: TextStyle(color: AppColors.textSecondary)),
+                          Text('M-Pesa STK Push',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16)),
+                          Text('Direct to phone',
+                              style: TextStyle(color: AppColors.textSecondary)),
                         ],
                       ),
                     ),
@@ -59,12 +66,14 @@ class PaymentScreen extends ConsumerWidget {
                       const SizedBox(
                         width: 24,
                         height: 24,
-                        child: CircularProgressIndicator(color: AppColors.primary),
+                        child:
+                            CircularProgressIndicator(color: AppColors.primary),
                       )
-                      .animate(onPlay: (controller) => controller.repeat())
-                      .shimmer(duration: 1000.ms, color: AppColors.primary)
+                          .animate(onPlay: (controller) => controller.repeat())
+                          .shimmer(duration: 1000.ms, color: AppColors.primary)
                     else
-                      const Icon(Icons.arrow_forward_ios, color: AppColors.primary, size: 16),
+                      const Icon(Icons.arrow_forward_ios,
+                          color: AppColors.primary, size: 16),
                   ],
                 ),
               ),
@@ -72,18 +81,21 @@ class PaymentScreen extends ConsumerWidget {
             if (status == PaymentStatus.pending)
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
-                child: const Text('Waiting for PIN...', textAlign: TextAlign.center)
+                child: const Text('Waiting for PIN...',
+                        textAlign: TextAlign.center)
                     .animate()
                     .fade(duration: 500.ms)
                     .tint(color: AppColors.primary),
               ),
-            
+
             const SizedBox(height: 24),
             // Airtel Money
-            const _DisabledPaymentMethod(icon: Icons.cell_tower, title: 'Airtel Money'),
+            const _DisabledPaymentMethod(
+                icon: Icons.cell_tower, title: 'Airtel Money'),
             const SizedBox(height: 12),
             // Card
-            const _DisabledPaymentMethod(icon: Icons.credit_card, title: 'Bank Card'),
+            const _DisabledPaymentMethod(
+                icon: Icons.credit_card, title: 'Bank Card'),
             const SizedBox(height: 12),
             // USSD
             const _DisabledPaymentMethod(icon: Icons.dialpad, title: 'USSD'),
@@ -113,7 +125,9 @@ class _DisabledPaymentMethod extends StatelessWidget {
           Icon(icon, color: Colors.grey, size: 32),
           const SizedBox(width: 16),
           Expanded(
-            child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+            child: Text(title,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.grey)),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -121,7 +135,8 @@ class _DisabledPaymentMethod extends StatelessWidget {
               color: Colors.grey.withOpacity(0.2),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Text('Coming Soon', style: TextStyle(color: Colors.grey, fontSize: 12)),
+            child: const Text('Coming Soon',
+                style: TextStyle(color: Colors.grey, fontSize: 12)),
           ),
         ],
       ),

@@ -66,12 +66,10 @@ class _PassScreenState extends State<PassScreen> {
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       color: AppColors.primary,
                     ),
-              )
-              .animate()
-              .shimmer(duration: 2.seconds),
-              
+              ).animate().shimmer(duration: 2.seconds),
+
               const SizedBox(height: 16),
-              
+
               Text(
                 'Expires in:',
                 style: Theme.of(context).textTheme.bodyLarge,
@@ -92,15 +90,24 @@ class _PassScreenState extends State<PassScreen> {
               if (widget.isEmergency)
                 Container(
                   margin: const EdgeInsets.only(bottom: 16),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     color: AppColors.error.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppColors.error, width: 2),
                   ),
-                  child: const Text('EMERGENCY OVERRIDE', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold, letterSpacing: 1.5)),
-                ).animate().flash(duration: 2.seconds),
-                
+                  child: const Text('EMERGENCY OVERRIDE',
+                      style: TextStyle(
+                          color: AppColors.error,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5)),
+                )
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .fadeIn(duration: 500.ms)
+                    .then()
+                    .fadeOut(duration: 500.ms),
+
               Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
@@ -132,16 +139,20 @@ class _PassScreenState extends State<PassScreen> {
                       children: [
                         Text(
                           _passCode,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
                                 letterSpacing: 4,
                               ),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.copy, color: AppColors.primary),
+                          icon:
+                              const Icon(Icons.copy, color: AppColors.primary),
                           onPressed: () {
                             Clipboard.setData(ClipboardData(text: _passCode));
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: const Text('Pass code copied')),
+                              const SnackBar(content: Text('Pass code copied')),
                             );
                           },
                         ),
@@ -149,9 +160,7 @@ class _PassScreenState extends State<PassScreen> {
                     ),
                   ],
                 ),
-              )
-              .animate()
-              .scale(curve: Curves.easeOutBack, duration: 800.ms),
+              ).animate().scale(curve: Curves.easeOutBack, duration: 800.ms),
 
               const Spacer(),
 
@@ -160,7 +169,8 @@ class _PassScreenState extends State<PassScreen> {
                 child: OutlinedButton.icon(
                   onPressed: _startTimer,
                   icon: const Icon(Icons.refresh, color: AppColors.primary),
-                  label: const Text('Renew Pass', style: TextStyle(color: AppColors.primary)),
+                  label: const Text('Renew Pass',
+                      style: TextStyle(color: AppColors.primary)),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppColors.primary),
                     padding: const EdgeInsets.symmetric(vertical: 16),

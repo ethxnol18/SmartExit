@@ -28,24 +28,22 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.toll, // Placeholder for actual logo
               size: 100,
               color: AppColors.primary,
             )
-            .animate()
-            .fade(duration: 800.ms)
-            .scale(duration: 800.ms, curve: Curves.easeOutBack),
+                .animate()
+                .fade(duration: 800.ms)
+                .scale(duration: 800.ms, curve: Curves.easeOutBack),
             const SizedBox(height: 24),
             Text(
               'SmartExit',
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
                     color: AppColors.primary,
                   ),
-            )
-            .animate()
-            .fade(delay: 400.ms, duration: 600.ms)
-            .slideY(begin: 0.5, end: 0, duration: 600.ms, curve: Curves.easeOut),
+            ).animate().fade(delay: 400.ms, duration: 600.ms).slideY(
+                begin: 0.5, end: 0, duration: 600.ms, curve: Curves.easeOut),
           ],
         ),
       ),
