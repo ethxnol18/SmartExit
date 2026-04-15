@@ -45,9 +45,11 @@ class _FareScreenState extends ConsumerState<FareScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Entry Point', style: Theme.of(context).textTheme.bodySmall),
+                  Text('Entry Point',
+                      style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(height: 4),
-                  Text(ticketState.entryPoint ?? 'Unknown', style: Theme.of(context).textTheme.titleLarge),
+                  Text(ticketState.entryPoint ?? 'Unknown',
+                      style: Theme.of(context).textTheme.titleLarge),
                 ],
               ),
             ),
@@ -57,7 +59,7 @@ class _FareScreenState extends ConsumerState<FareScreen> {
                 labelText: 'Select Expected Exit',
                 border: OutlineInputBorder(),
               ),
-              value: _selectedExit,
+              initialValue: _selectedExit,
               items: _exitRates.keys.map((exit) {
                 return DropdownMenuItem(
                   value: exit,
@@ -75,21 +77,25 @@ class _FareScreenState extends ConsumerState<FareScreen> {
               Center(
                 child: Column(
                   children: [
-                    Text('Total Fare', style: Theme.of(context).textTheme.bodyLarge),
+                    Text('Total Fare',
+                        style: Theme.of(context).textTheme.bodyLarge),
                     Text(
                       'KES $fare',
-                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                            color: AppColors.primary,
-                          ),
+                      style:
+                          Theme.of(context).textTheme.displayMedium?.copyWith(
+                                color: AppColors.primary,
+                              ),
                     ),
                   ],
                 ),
               ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: _selectedExit == null ? null : () {
-                context.push('/payment');
-              },
+              onPressed: _selectedExit == null
+                  ? null
+                  : () {
+                      context.push('/payment');
+                    },
               child: const Text('Proceed to Pay'),
             ),
             const SizedBox(height: 24),
