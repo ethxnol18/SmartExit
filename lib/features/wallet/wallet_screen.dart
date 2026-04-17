@@ -53,6 +53,8 @@ class WalletScreen extends ConsumerWidget {
               ],
             ),
           ),
+          const SizedBox(height: 16),
+          _buildDrivingPoints(context),
           const SizedBox(height: 24),
           Text('Recent Transactions',
               style: Theme.of(context).textTheme.titleLarge),
@@ -82,6 +84,51 @@ class WalletScreen extends ConsumerWidget {
                     isTopUp: true),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrivingPoints(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.primary.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Row(
+                children: [
+                  Icon(Icons.stars, color: Colors.amber, size: 20),
+                  SizedBox(width: 8),
+                  Text('Driving Points', style: TextStyle(color: AppColors.textSecondary)),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text('1,450 pts',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(color: AppColors.primary, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 4),
+              const Text('≈ KES 145.00 Value',
+                  style: TextStyle(color: Colors.white54, fontSize: 12)),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.black,
+            ),
+            child: const Text('Redeem', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
