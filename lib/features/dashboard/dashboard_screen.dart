@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/constants.dart';
-import '../wallet/wallet_screen.dart';
-import '../vehicles/vehicle_list_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -17,7 +15,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final PageController _promoController = PageController();
   int _currentPromoPage = 0;
   Timer? _promoTimer;
-  int _currentNavIndex = 0;
 
   @override
   void initState() {
@@ -57,67 +54,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      body: _buildBody(),
-      floatingActionButton: _currentNavIndex == 0 ? FloatingActionButton.extended(
-        backgroundColor: AppColors.primary,
-        foregroundColor: Colors.black,
-        icon: const Icon(Icons.qr_code_scanner),
-        label: const Text('Scan Entry QR', style: TextStyle(fontWeight: FontWeight.bold)),
-        onPressed: () => context.push('/ticket'),
-      ) : null,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.surface,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textSecondary,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentNavIndex,
-        onTap: (index) => setState(() => _currentNavIndex = index),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
-          BottomNavigationBarItem(icon: Icon(Icons.directions_car), label: 'Vehicles'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBody() {
-    switch (_currentNavIndex) {
-      case 0:
-        return _buildHomeTab();
-      case 1:
-        return const WalletScreen();
-      case 2:
-        return const VehicleListScreen();
-      case 3:
-      default:
-        return const Center(child: Text('Profile Screen - Coming Soon'));
-    }
-  }
-
-  Widget _buildHomeTab() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // 1. Loyalty Points Banner
-          _buildLoyaltyBanner(context),
-          const SizedBox(height: 24),
-          // 2. Rotating Promos
-          _buildPromos(),
-          const SizedBox(height: 24),
-          // 3. Wallet Balance Card
-          _buildWalletCard(context),
-          const SizedBox(height: 24),
-          // 4. Car Card Slider
-          _buildCarSlider(context),
-          const SizedBox(height: 32),
-          // 5. Emergency Pass Button
-          _buildEmergencyButton(context),
-          const SizedBox(height: 80), // Fab space
-        ].animate(interval: 100.ms).fade(duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildLoyaltyBanner(context),
+            const SizedBox(height: 24),
+            _buildPromos(),
+            const SizedBox(height: 24),
+            _buildWalletCard(context),
+            const SizedBox(height: 24),
+            _buildCarSlider(context),
+            const SizedBox(height: 32),
+            _buildEmergencyButton(context),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ElevatedButton.icon(
+                onPressed: () => context.push('/trip'),
+                icon: const Icon(Icons.play_arrow, color: Colors.black),
+                label: const Text('Start Active Trip Simulation', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                style: ElevatedButton.styleFrom(
+                   backgroundColor: AppColors.primary,
+                   padding: const EdgeInsets.symmetric(vertical: 16)
+                )
+              ),
+            ),
+            const SizedBox(height: 80), // Fab space
+          ].animate(interval: 100.ms).fade(duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
+        ),
       ),
     );
   }
@@ -182,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 child: Center(
                   child: Text(
-                    'Exclusive Offer ${index + 1}',
+                     'Exclusive Offer ${index + 1}',
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                 ),

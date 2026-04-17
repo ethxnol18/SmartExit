@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../features/splash/splash_screen.dart';
 import '../features/auth/phone_input_screen.dart';
@@ -11,8 +12,25 @@ import '../features/emergency/emergency_screen.dart';
 import '../features/vehicles/add_vehicle_screen.dart';
 import '../features/attendant/attendant_login_screen.dart';
 import '../features/attendant/attendant_dashboard_screen.dart';
+import '../features/dashboard/main_shell.dart';
+import '../features/wallet/wallet_screen.dart';
+import '../features/vehicles/vehicle_list_screen.dart';
+import '../features/trip/trip_screen.dart';
+import '../features/profile/profile_screen.dart';
+
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _homeNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'home');
+final GlobalKey<NavigatorState> _walletNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'wallet');
+final GlobalKey<NavigatorState> _vehiclesNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'vehicles');
+final GlobalKey<NavigatorState> _profileNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'profile');
 
 final GoRouter appRouter = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
     GoRoute(
@@ -30,40 +48,89 @@ final GoRouter appRouter = GoRouter(
       ],
     ),
     GoRoute(
-      path: '/dashboard',
-      builder: (context, state) => const DashboardScreen(),
-    ),
-    GoRoute(
-      path: '/ticket',
-      builder: (context, state) => const TicketRetrievalScreen(),
-    ),
-    GoRoute(
-      path: '/fare',
-      builder: (context, state) => const FareScreen(),
-    ),
-    GoRoute(
-      path: '/payment',
-      builder: (context, state) => const PaymentScreen(),
-    ),
-    GoRoute(
-      path: '/pass',
-      builder: (context, state) => PassScreen(isEmergency: state.extra as bool? ?? false),
-    ),
-    GoRoute(
-      path: '/emergency',
-      builder: (context, state) => const EmergencyScreen(),
-    ),
-    GoRoute(
-      path: '/add_vehicle',
-      builder: (context, state) => const AddVehicleScreen(),
-    ),
-    GoRoute(
       path: '/attendant',
       builder: (context, state) => const AttendantLoginScreen(),
       routes: [
         GoRoute(
           path: 'dashboard',
           builder: (context, state) => const AttendantDashboardScreen(),
+        ),
+      ],
+    ),
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return MainShell(navigationShell: navigationShell);
+      },
+      branches: [
+        // Home Branch
+        StatefulShellBranch(
+          navigatorKey: _homeNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/dashboard',
+              builder: (context, state) => const DashboardScreen(),
+            ),
+            GoRoute(
+              path: '/ticket',
+              builder: (context, state) => const TicketRetrievalScreen(),
+            ),
+            GoRoute(
+              path: '/fare',
+              builder: (context, state) => const FareScreen(),
+            ),
+            GoRoute(
+              path: '/payment',
+              builder: (context, state) => const PaymentScreen(),
+            ),
+            GoRoute(
+              path: '/pass',
+              builder: (context, state) => PassScreen(
+                isEmergency: state.extra as bool? ?? false,
+              ),
+            ),
+            GoRoute(
+              path: '/emergency',
+              builder: (context, state) => const EmergencyScreen(),
+            ),
+            GoRoute(
+              path: '/trip',
+              builder: (context, state) => const TripScreen(),
+            ),
+          ],
+        ),
+        // Wallet Branch
+        StatefulShellBranch(
+          navigatorKey: _walletNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/wallet',
+              builder: (context, state) => const WalletScreen(),
+            ),
+          ],
+        ),
+        // Vehicles Branch
+        StatefulShellBranch(
+          navigatorKey: _vehiclesNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/vehicles',
+              builder: (context, state) => const VehicleListScreen(),
+            ),
+            GoRoute(
+              path: '/add_vehicle',
+              builder: (context, state) => const AddVehicleScreen(),
+            ),
+          ],
+        ),
+        // Profile Branch
+        StatefulShellBranch(
+          navigatorKey: _profileNavigatorKey,
+          routes: [
+            GoRoute(
+              path: '/profile',
+              builder: (context, state) => const ProfileScreen(),
+            ),
+          ],
         ),
       ],
     ),
