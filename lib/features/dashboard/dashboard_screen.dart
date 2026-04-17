@@ -93,19 +93,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _buildCarSlider(context),
             const SizedBox(height: 32),
             _buildEmergencyButton(context),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: ElevatedButton.icon(
-                onPressed: () => context.push('/trip'),
-                icon: const Icon(Icons.play_arrow, color: Colors.black),
-                label: const Text('Start Active Trip Simulation', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                style: ElevatedButton.styleFrom(
-                   backgroundColor: AppColors.primary,
-                   padding: const EdgeInsets.symmetric(vertical: 16)
-                )
-              ),
-            ),
             const SizedBox(height: 80), // Fab space
           ].animate(interval: 100.ms).fade(duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOut),
         ),

@@ -26,6 +26,8 @@ class MainShell extends StatelessWidget {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
         type: BottomNavigationBarType.fixed,
+        selectedFontSize: 11,
+        unselectedFontSize: 9,
         currentIndex: navigationShell.currentIndex,
         onTap: (index) => navigationShell.goBranch(
           index,
@@ -33,6 +35,8 @@ class MainShell extends StatelessWidget {
         ),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Pay Ticket'),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Active Trip'),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
           BottomNavigationBarItem(

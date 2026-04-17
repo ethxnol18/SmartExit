@@ -24,6 +24,10 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _homeNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'home');
+final GlobalKey<NavigatorState> _payNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'pay');
+final GlobalKey<NavigatorState> _tripNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'trip');
 final GlobalKey<NavigatorState> _walletNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'wallet');
 final GlobalKey<NavigatorState> _vehiclesNavigatorKey =
@@ -64,7 +68,7 @@ final GoRouter appRouter = GoRouter(
         return MainShell(navigationShell: navigationShell);
       },
       branches: [
-        // Home Branch
+        // Tab 0: Home Branch
         StatefulShellBranch(
           navigatorKey: _homeNavigatorKey,
           routes: [
@@ -77,6 +81,22 @@ final GoRouter appRouter = GoRouter(
               builder: (context, state) => const NotificationsScreen(),
             ),
             GoRoute(
+              path: '/pass',
+              builder: (context, state) => PassScreen(
+                isEmergency: state.extra as bool? ?? false,
+              ),
+            ),
+            GoRoute(
+              path: '/emergency',
+              builder: (context, state) => const EmergencyScreen(),
+            ),
+          ],
+        ),
+        // Tab 1: Pay Ticket Branch
+        StatefulShellBranch(
+          navigatorKey: _payNavigatorKey,
+          routes: [
+            GoRoute(
               path: '/ticket',
               builder: (context, state) => const TicketRetrievalScreen(),
             ),
@@ -88,23 +108,19 @@ final GoRouter appRouter = GoRouter(
               path: '/payment',
               builder: (context, state) => const PaymentScreen(),
             ),
-            GoRoute(
-              path: '/pass',
-              builder: (context, state) => PassScreen(
-                isEmergency: state.extra as bool? ?? false,
-              ),
-            ),
-            GoRoute(
-              path: '/emergency',
-              builder: (context, state) => const EmergencyScreen(),
-            ),
+          ],
+        ),
+        // Tab 2: Active Trip Branch
+        StatefulShellBranch(
+          navigatorKey: _tripNavigatorKey,
+          routes: [
             GoRoute(
               path: '/trip',
               builder: (context, state) => const TripScreen(),
             ),
           ],
         ),
-        // Wallet Branch
+        // Tab 3: Wallet Branch
         StatefulShellBranch(
           navigatorKey: _walletNavigatorKey,
           routes: [
@@ -114,7 +130,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Vehicles Branch
+        // Tab 4: Vehicles Branch
         StatefulShellBranch(
           navigatorKey: _vehiclesNavigatorKey,
           routes: [
@@ -128,7 +144,7 @@ final GoRouter appRouter = GoRouter(
             ),
           ],
         ),
-        // Profile Branch
+        // Tab 5: Profile Branch
         StatefulShellBranch(
           navigatorKey: _profileNavigatorKey,
           routes: [
