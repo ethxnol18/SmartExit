@@ -13,13 +13,18 @@ class FareScreen extends ConsumerStatefulWidget {
 
 class _FareScreenState extends ConsumerState<FareScreen> {
   final Map<String, int> _exitRates = {
+    'Mlolongo': 100,
+    'Athi River': 150,
     'Syokimau': 120,
     'SGR': 170,
     'JKIA': 250,
+    'Cabanas': 280,
     'Eastern Bypass': 300,
     'Capital Centre': 360,
+    'Haile Selassie': 380,
     'Museum Hill': 400,
     'Westlands': 500,
+    'Rironi': 600,
   };
 
   String? _selectedExit;

@@ -94,14 +94,14 @@ class _TripScreenState extends State<TripScreen> {
 
           // Content Layer
           SafeArea(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Column(
                 children: [
-                  const Spacer(flex: 1),
+                  const SizedBox(height: 32),
                   // Central Speedometer
                   _buildSpeedometer(),
-                  const Spacer(flex: 2),
+                  const SizedBox(height: 48),
                   
                   // Bottom Data Dash
                   _buildTelemetryGrid(),

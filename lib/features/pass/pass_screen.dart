@@ -56,7 +56,7 @@ class _PassScreenState extends State<PassScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -162,7 +162,7 @@ class _PassScreenState extends State<PassScreen> {
                 ),
               ).animate().scale(curve: Curves.easeOutBack, duration: 800.ms),
 
-              const Spacer(),
+              const SizedBox(height: 32),
 
               SizedBox(
                 width: double.infinity,

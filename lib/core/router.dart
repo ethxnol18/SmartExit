@@ -4,6 +4,7 @@ import '../features/splash/splash_screen.dart';
 import '../features/auth/phone_input_screen.dart';
 import '../features/auth/otp_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
+import '../features/dashboard/notifications_screen.dart';
 import '../features/ticket/ticket_retrieval_screen.dart';
 import '../features/ticket/fare_screen.dart';
 import '../features/payment/payment_screen.dart';
@@ -17,6 +18,7 @@ import '../features/wallet/wallet_screen.dart';
 import '../features/vehicles/vehicle_list_screen.dart';
 import '../features/trip/trip_screen.dart';
 import '../features/profile/profile_screen.dart';
+import '../features/settings/settings_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -69,6 +71,10 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/dashboard',
               builder: (context, state) => const DashboardScreen(),
+            ),
+            GoRoute(
+              path: '/notifications',
+              builder: (context, state) => const NotificationsScreen(),
             ),
             GoRoute(
               path: '/ticket',
@@ -129,6 +135,10 @@ final GoRouter appRouter = GoRouter(
             GoRoute(
               path: '/profile',
               builder: (context, state) => const ProfileScreen(),
+            ),
+            GoRoute(
+              path: '/settings',
+              builder: (context, state) => const SettingsScreen(),
             ),
           ],
         ),

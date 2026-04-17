@@ -12,12 +12,35 @@ class TicketNotifier extends StateNotifier<TicketState> {
 
   bool validateAndSetTicket(String code) {
     // Basic mock validation logic
-    if (code.trim().length < 4) return false; 
+    final cleanCode = code.trim();
+    if (cleanCode.length < 4) return false; 
+    
+    final List<String> allStations = [
+      'Mlolongo', 'Athi River', 'Syokimau', 'SGR', 'JKIA', 
+      'Cabanas', 'Eastern Bypass', 'Capital Centre', 
+      'Haile Selassie', 'Museum Hill', 'Westlands', 'Rironi'
+    ];
+
+    String generatedEntry = "Unknown";
+    
+    // Deterministic mappings based on user prompt
+    if (cleanCode == "123456") {
+      generatedEntry = "Mlolongo";
+    } else if (cleanCode == "654321") {
+      generatedEntry = "JKIA";
+    } else {
+      // Create a deterministic hash from the ticket string
+      int pseudoHash = 0;
+      for (int i = 0; i < cleanCode.length; i++) {
+        pseudoHash += cleanCode.codeUnitAt(i);
+      }
+      generatedEntry = allStations[pseudoHash % allStations.length];
+    }
     
     // Mock deriving the entry point from the code metadata
     state = TicketState(
-      ticketCode: code.trim(),
-      entryPoint: "Mlolongo Entry Gate 2",
+      ticketCode: cleanCode,
+      entryPoint: generatedEntry,
     );
     return true;
   }
